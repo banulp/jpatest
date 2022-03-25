@@ -8,6 +8,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-#    show-sql: true
+    show-sql: true
 #https://spring.io/guides/gs/accessing-data-mysql/
 #https://www.baeldung.com/hibernate-one-to-many
