@@ -2,10 +2,12 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: appdev
-    url: jdbc:mysql://172.18.3.77:3306/db_banulp
+#    url: jdbc:mysql://172.18.3.77:3306/db_banulp
+    url: jdbc:mysql://172.18.3.77:3306/gdadmin
     password: appdev01
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 #    show-sql: true
 #https://spring.io/guides/gs/accessing-data-mysql/
+#https://www.baeldung.com/hibernate-one-to-many
