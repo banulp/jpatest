@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: appdev
+    url: jdbc:mysql://172.18.3.77:3306/db_banulp
+    password: appdev01
+  jpa:
+    hibernate:
+      ddl-auto: update
+#    show-sql: true
+#https://spring.io/guides/gs/accessing-data-mysql/
