@@ -1,13 +1,15 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  r2dbc:
+#    url: r2dbcs:mariadb://:3306/gdadmin?sslMode=DISABLED&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    url: r2dbcs:mariadb://:3306/db_banulp?sslMode=DISABLED&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
     username:
-#    url: jdbc:mysql://172.18.3.77:3306/db_banulp
-    url: jdbc:mysql://172.18.3.77:3306/gdadmin
     password:
   jpa:
     hibernate:
       ddl-auto: none
     show-sql: true
-#https://spring.io/guides/gs/accessing-data-mysql/
-#https://www.baeldung.com/hibernate-one-to-many
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: DEBUG

@@ -1,33 +1,34 @@
 package com.example.accessingdatamysql;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.relational.core.mapping.Column;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+//import javax.persistence.*;
 
-@Entity
+//@Entity
 public class Member {
 
     @Id
-    @Column(name="seq")
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private int seq;
+    @Column("seq")
+//    @Column(name="seq")
+//    @GeneratedValue(strategy=GenerationType.AUTO)
+    private long seq;
 
-    @Column(name="name")
+    @Column("name")
+//    @Column(name="name")
     private String name;
 
-    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL) // (1)
-    @JoinColumn(name="member_id")
-    private Collection<Phone> phone;
+    // r2dbc 는 ORM 안됨
+//    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL) // (1)
+//    @JoinColumn(name="member_id")
+//    private Collection<Phone> phone;
+    @Transient
+    private List<Phone> phones;
 
     public Member(){}
 
@@ -35,11 +36,11 @@ public class Member {
         this.name = name;
     }
 
-    public int getSeq() {
+    public long getSeq() {
         return seq;
     }
 
-    public void setSeq(int id) {
+    public void setSeq(long id) {
         this.seq = id;
     }
 
@@ -51,25 +52,30 @@ public class Member {
         this.name = name;
     }
 
-    public Collection<Phone> getPhone() {
-        return phone;
+    public List<Phone> getPhones() {
+        return phones;
     }
 
-    public void setPhone(List<Phone> phone) {
-        this.phone = phone;
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
     }
 
     public void addPhone(Phone p){
-        if( phone == null ){
-            phone = new ArrayList<Phone>();
+        if( phones == null ){
+            phones = new ArrayList<Phone>();
         }
-        phone.add(p);
+        phones.add(p);
+    }
+
+    public Member update(List<Phone> phones) {
+        this.phones = phones;
+        return this;
     }
 
     @Override
     public String toString() {
         String result = "["+seq+"] " + name;
-        for( Phone p : phone ){
+        for( Phone p : phones ){
             result += "\n" + p.toString();
         }
         return result;

@@ -2,11 +2,8 @@ package com.example.accessingdatamysql;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class MainController {
 
 
 	@GetMapping(path="/init")
-	public @ResponseBody List<Member> init() {
+	public @ResponseBody Flux<Member> init() {
 //		Member first = new Member("Jung"); // (1)
 //		first.addPhone(new Phone("010-XXXX-XXXX"));
 //		first.addPhone(new Phone("010-YYYY-YYYY"));
@@ -39,26 +36,50 @@ public class MainController {
 //		mr.save(second);
 //		mr.save(third); // (4)
 
-		List<Member> list = mr.findAll(); // (5)
+		Flux<Member> list = mr.findAll(); // (5)
 		return list;
 	}
 
-
-	@PostMapping(path="/add") // Map ONLY POST Requests
-	public @ResponseBody String addNewUser (@RequestParam String name
-			, @RequestParam String email) {
-		// @ResponseBody means the returned String is the response, not a view name
-		// @RequestParam means it is a parameter from the GET or POST request
-
-		User n = new User();
-		n.setName(name);
-		n.setEmail(email);
-		userRepository.save(n);
-		return "Saved";
+	@GetMapping(path="/mlist")
+	public @ResponseBody Flux<Member> mlist() {
+		return mr.findAll()
+				.collectMap(Member::getSeq)
+				.flatMapMany(members -> pr.findAllWithMembers(members.keySet())
+						.bufferUntilChanged(Phone::getMemberId)
+						.map(phones -> {
+							return members.get(phones.get(0).getMemberId()).update(phones);
+						})
+				);
 	}
 
+	@GetMapping(path="/mlist/{name}")
+	public @ResponseBody Flux<Member> mlist(@PathVariable String name) {
+		return mr.findByName(name)
+				.collectMap(Member::getSeq)
+				.flatMapMany(members -> pr.findAllWithMembers(members.keySet())
+						.bufferUntilChanged(Phone::getMemberId)
+						.map(phones -> {
+							return members.get(phones.get(0).getMemberId()).update(phones);
+						})
+				);
+	}
+
+
+//	@PostMapping(path="/add") // Map ONLY POST Requests
+//	public @ResponseBody String addNewUser (@RequestParam String name
+//			, @RequestParam String email) {
+//		// @ResponseBody means the returned String is the response, not a view name
+//		// @RequestParam means it is a parameter from the GET or POST request
+//
+//		User n = new User();
+//		n.setName(name);
+//		n.setEmail(email);
+//		userRepository.save(n);
+//		return "Saved";
+//	}
+
 	@GetMapping(path="/all")
-	public @ResponseBody Iterable<User> getAllUsers() {
+	public @ResponseBody Flux<User> getAllUsers() {
 		// This returns a JSON or XML with the users
 		return userRepository.findAll();
 	}

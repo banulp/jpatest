@@ -1,23 +1,28 @@
 package com.example.accessingdatamysql;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
 
-@Entity
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+
+//@Entity
 public class Variable {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+//    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @Column(name="api_id")
+//    @Column(name="api_id")
+    @Column("api_id")
     private Integer apiId;
     private String type;
     private String name;
     private String value;
-    @Column(name="data_type")
+//    @Column(name="data_type")
+    @Column("data_type")
     private String dataType;
     private Integer required;
     private String desc;

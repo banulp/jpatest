@@ -1,24 +1,38 @@
 package com.example.accessingdatamysql;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+//import javax.persistence.*;
 
-@Entity
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.relational.core.mapping.Column;
+
+//@Entity
 public class Phone {
 
     @Id
-    @Column(name="seq")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+//    @Column(name="seq")
+    @Column("seq")
+//    @GeneratedValue(strategy=GenerationType.AUTO)
     private int seq;
 
-    @Column(name="member_id")
-    private int memberId;
+    @Column("member_id")
+//    @Column(name="member_id")
+    private long memberId;
 
-    @Column(name="no")
+    @Column("no")
+//    @Column(name="no")
     private String no;
+
+//    @Transient
+//    private Member member;
+//
+//    public Member getMember() {
+//        return member;
+//    }
+//
+//    public void setMember(Member member) {
+//        this.member = member;
+//    }
 
     public Phone() {}
     public Phone(String no){
@@ -33,11 +47,11 @@ public class Phone {
         this.seq = seq;
     }
 
-    public int getMemberId() {
+    public long getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(int memberId) {
+    public void setMemberId(long memberId) {
         this.memberId = memberId;
     }
 

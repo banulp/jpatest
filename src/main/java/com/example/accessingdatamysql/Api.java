@@ -1,20 +1,22 @@
 package com.example.accessingdatamysql;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+//import javax.persistence.CascadeType;
+//import javax.persistence.Entity;
+//import javax.persistence.FetchType;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.JoinColumn;
+//import javax.persistence.OneToMany;
 
-@Entity
+//@Entity
 public class Api {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+//    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     private String code;
@@ -25,8 +27,8 @@ public class Api {
     private String authnType;
     private Integer seq;
 
-    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL) // (1)
-    @JoinColumn(name="api_id")
+//    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL) // (1)
+//    @JoinColumn(name="api_id")
     private Collection<Variable> variableList;
 
     public Long getId() {
