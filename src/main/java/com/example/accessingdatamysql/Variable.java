@@ -17,14 +17,14 @@ public class Variable {
 
 //    @Column(name="api_id")
     @Column("api_id")
-    private Integer apiId;
+    private Long apiId;
     private String type;
     private String name;
     private String value;
 //    @Column(name="data_type")
     @Column("data_type")
     private String dataType;
-    private Integer required;
+    private Boolean required;
     private String desc;
 
     public Long getId() {
@@ -35,11 +35,11 @@ public class Variable {
         this.id = id;
     }
 
-    public Integer getApiId() {
+    public Long getApiId() {
         return apiId;
     }
 
-    public void setApiId(Integer apiId) {
+    public void setApiId(Long apiId) {
         this.apiId = apiId;
     }
 
@@ -75,11 +75,11 @@ public class Variable {
         this.dataType = dataType;
     }
 
-    public Integer getRequired() {
+    public Boolean getRequired() {
         return required;
     }
 
-    public void setRequired(Integer required) {
+    public void setRequired(Boolean required) {
         this.required = required;
     }
 

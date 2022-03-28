@@ -1,7 +1,7 @@
 spring:
   r2dbc:
-#    url: r2dbcs:mariadb://:3306/gdadmin?sslMode=DISABLED&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
-    url: r2dbcs:mariadb://:3306/db_banulp?sslMode=DISABLED&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    url: r2dbcs:mariadb://172.18.3.77:3306/gdadmin?sslMode=DISABLED&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+#    url: r2dbcs:mariadb://172.18.3.77:3306/db_banulp?sslMode=DISABLED&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
     username:
     password:
   jpa:

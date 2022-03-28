@@ -1,8 +1,10 @@
 package com.example.accessingdatamysql;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 import java.util.Collection;
+import java.util.List;
 
 //import javax.persistence.CascadeType;
 //import javax.persistence.Entity;
@@ -29,7 +31,8 @@ public class Api {
 
 //    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL) // (1)
 //    @JoinColumn(name="api_id")
-    private Collection<Variable> variableList;
+    @Transient
+    private List<Variable> variableList;
 
     public Long getId() {
         return id;
@@ -95,11 +98,16 @@ public class Api {
         this.seq = seq;
     }
 
-    public Collection<Variable> getVariableList() {
+    public List<Variable> getVariableList() {
         return variableList;
     }
 
-    public void setVariableList(Collection<Variable> variableList) {
+    public Api update(List<Variable> variableList) {
+        this.variableList = variableList;
+        return this;
+    }
+
+    public void setVariableList(List<Variable> variableList) {
         this.variableList = variableList;
     }
 }
